@@ -1,0 +1,140 @@
+table {
+    width: 83%;
+    border: 1px solid #DCDCDC;
+    border-radius: 5px;
+    box-shadow: none;
+
+}
+
+.table-div {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+th {
+    background: #E4EDFF;
+    color: black;
+    font-family: Roboto;
+    font-size: 14px;
+    font-weight: 600;
+    text-align: left;
+
+}
+
+.cus-btn {
+    width: 151px;
+    height: 35px;
+    opacity: 0px;
+    background: #3778F6;
+    color: white;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 24px;
+    text-align: center;
+    margin-right: 20px;
+}
+.pin-btn {
+    width: 151px;
+    height: 35px;
+    opacity: 0px;
+    background: #3778F6;
+    color: white;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 24px;
+    text-align: center;
+
+}
+.cus-form {
+    display: flex;
+    flex-direction: column;
+}
+
+.btn-div {
+    margin-top: 10px;
+    display: flex;
+    flex-direction: row;
+    width: 91.5%;
+    justify-content: flex-end;
+}
+.form-div {
+    display: flex;
+    flex-direction: row;
+}
+.inner-div {
+    display: flex;
+    flex-direction: column;
+}
+.required {
+    color: red;
+}
+.ipbox {
+    width: 200px;
+    height: 30px;
+    border-radius: 2px;
+    border: 1px solid #DCDCDC;
+}
+::ng-deep .fieldtxt .mat-form-field-outline {
+    border: 1px solid #EEEEEE;
+    border-radius: 2px;
+    height: 27px;
+    color: #F8F8F8;
+  }
+  
+  ::ng-deep .fieldtxt .mat-select-value {
+    overflow: unset !important;
+  }
+  
+  ::ng-deep .fieldtxt .mat-select-arrow {
+    margin-top: 6px !important;
+  }
+  
+  ::ng-deep .fieldtxt .mat-form-field-wrapper {
+    height: 25px !important;
+  }
+  ::ng-deep.mat-select-placeholder {
+    color: #3778F6;
+    font-size: 12px;
+    font-family: roboto;
+}
+::ng-deep.fieldtxt .mat-select-arrow {
+    color: #3778F6;
+}
+.save-div {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    margin-top: 20px;
+
+}
+.crt-btn {
+    width: 151px;
+    height: 35px;
+    opacity: 0px;
+    background: #3778F6;
+    color: white;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 24px;
+    text-align: center;
+}
+::ng-deep.mat-radio-button.mat-accent .mat-radio-inner-circle, .mat-radio-button.mat-accent .mat-radio-ripple .mat-ripple-element:not(.mat-radio-persistent-ripple), .mat-radio-button.mat-accent.mat-radio-checked .mat-radio-persistent-ripple, .mat-radio-button.mat-accent:active .mat-radio-persistent-ripple {
+    background-color: #3778F6;
+}
+::ng-deep.mat-radio-button.mat-accent.mat-radio-checked .mat-radio-outer-circle {
+    border-color: #3778F6;
+}
+.blue-background {
+    background-color: blue;
+  }
+  .mat-cell {
+    text-align: center;
+  }
+  .mat-header-cell {
+    text-align: center;
+  }
