@@ -3,6 +3,8 @@ import { MatTableDataSource } from '@angular/material/table';
 import { MatDialog } from '@angular/material/dialog';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { DomSanitizer } from '@angular/platform-browser';
+import { MatSnackBar } from '@angular/material/snack-bar';
+
 
 @Component({
   selector: 'app-root',
@@ -34,7 +36,7 @@ export class AppComponent implements OnInit {
   @ViewChild('customer') customer!: TemplateRef<any>;
   @ViewChild('pin') pin!: TemplateRef<any>;
   selImg: any;
-  constructor(private dialog: MatDialog, private cd: ChangeDetectorRef, private sanitizer: DomSanitizer) { }
+  constructor(private dialog: MatDialog,private _snackBar: MatSnackBar, private cd: ChangeDetectorRef, private sanitizer: DomSanitizer) { }
   ngOnInit() {
     this.dataSource.data = this.listData;
     this.customerForm = new FormGroup({
@@ -48,6 +50,14 @@ export class AppComponent implements OnInit {
       image: new FormControl('', Validators.required),
       collaborator: new FormControl('', Validators.required),
       privacy: new FormControl('private')
+    });
+  }
+  openSnackBar(msg: any) {
+    this._snackBar.open(msg, "OK", {
+      duration: 3000,
+      verticalPosition: 'top',
+      horizontalPosition: 'center',
+      panelClass: ['blue-snackbar']
     });
   }
   get isValid() {
@@ -85,6 +95,7 @@ export class AppComponent implements OnInit {
     this.collaborators.push(formValue);
     this.customerForm.reset();
     this.dialog.closeAll();
+    this.openSnackBar('Customer Added Successfully');
     // Save the form data to your database or API
   }
   onSubmitPin() {
@@ -93,7 +104,7 @@ export class AppComponent implements OnInit {
     this.dataSource.data = [...this.listData]
     this.cd.detectChanges();
     this.form.reset();
-
+    this.openSnackBar('Pin Added Successfully');
   }
   addcustomer() {
     this.customerForm.reset();
