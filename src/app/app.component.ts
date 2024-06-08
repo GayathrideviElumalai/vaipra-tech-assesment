@@ -37,7 +37,6 @@ export class AppComponent implements OnInit {
   constructor(private dialog: MatDialog, private cd: ChangeDetectorRef, private sanitizer: DomSanitizer) { }
   ngOnInit() {
     this.dataSource.data = this.listData;
-    console.log(this.dataSource.data)
     this.customerForm = new FormGroup({
       name: new FormControl('', Validators.required),
       email: new FormControl('', [Validators.required, Validators.email]),
@@ -63,13 +62,15 @@ export class AppComponent implements OnInit {
     const url = URL.createObjectURL(file);
     this.sanitizedImageUrl = this.sanitizer.bypassSecurityTrustUrl(url);
   }
+  selImgName: string = '';
   handleFileInput(event: any) {
     const input = event.target;
 
     if (input.files && input.files[0]) {
       const file = input.files[0];
       const reader = new FileReader();
-
+      this.selImgName = file.name; // Store the name of the selected file
+      
       reader.onload = (e) => {
         this.selImg = e.target?.result;
         this.form.value.image = this.selImg;
@@ -81,19 +82,16 @@ export class AppComponent implements OnInit {
   onSubmit(formValue: any): void {
 
     this.customerData.push(formValue);
-    console.log('customerData', this.customerData);
     this.collaborators.push(formValue);
     this.customerForm.reset();
     this.dialog.closeAll();
     // Save the form data to your database or API
   }
   onSubmitPin() {
-    console.log('Form Value', this.form.value);
     this.dialog.closeAll();
     this.listData.push(this.form.value);
     this.dataSource.data = [...this.listData]
     this.cd.detectChanges();
-    console.log(this.dataSource.data)
     this.form.reset();
 
   }
@@ -110,6 +108,5 @@ export class AppComponent implements OnInit {
     this.form.value.privacy = 'private';
     this.form.controls['privacy'].setValue('private');
     this.dialog.open(this.pin, { disableClose: true });
-
   }
 }
