@@ -1,115 +1,94 @@
-<div style="display: flex;
-width: 100%;
-justify-content: center;
-margin-top: 35px;">
-  <div style="display: flex;justify-content: flex-start;width: 83%;">
-    <label style="font-family: Roboto;
-    font-size: 20px;
-    font-weight: 600;color: #001A4C;">List of Pins</label>
+<div class="main-cont" >
+  <div class="in-main" >
+    <label class="main-lbl" >List of Pins</label>
   </div>
 </div>
 <div class="btn-div">
   <button class="cus-btn" mat-raised-button (click)="addcustomer()"> Add Customer</button>
-<button class="pin-btn" mat-raised-button (click)="addpin()"> Add Pin </button>
+  <button class="pin-btn" mat-raised-button (click)="addpin()"> Add Pin </button>
 </div>
 <div class="table-div">
-  <table  mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+  <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
 
     <ng-container matColumnDef="title">
       <th mat-header-cell *matHeaderCellDef> Title </th>
       <td mat-cell *matCellDef="let element"> {{element.title}} </td>
     </ng-container>
-  
+
     <ng-container matColumnDef="image">
       <th mat-header-cell *matHeaderCellDef> Image </th>
-      <td mat-cell *matCellDef="let element"> 
-        <img width="60px" height="30px" style="border-radius: 5px;" [src]="element.image" /> </td>
+      <td mat-cell *matCellDef="let element">
+        <img width="60px" height="30px" style="border-radius: 5px;" [src]="element.image" />
+      </td>
     </ng-container>
-  
+
     <ng-container matColumnDef="collabrator">
       <th mat-header-cell *matHeaderCellDef> Collaborators </th>
       <td mat-cell *matCellDef="let element">
-        <span style="display: flex;flex-direction: column;"  *ngFor="let collab of element.collaborator">{{collab}}</span>
+        <span style="display: flex;flex-direction: column;"
+          *ngFor="let collab of element.collaborator">{{collab}}</span>
       </td>
     </ng-container>
-  
+
     <ng-container matColumnDef="privacy">
       <th mat-header-cell *matHeaderCellDef> Privacy </th>
       <td mat-cell *matCellDef="let element"> {{element.privacy}} </td>
     </ng-container>
-  
+
     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
     <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
   </table>
 </div>
-<div style = "width: 100%;
-display: flex;height: 43px;
-justify-content: center;" *ngIf="listData.length == 0"> 
-  <div style="border-radius: 1px;
-  border: 1px solid #E0E0E0;align-items: center;
-  width: 83%;display: flex;justify-content: center;">
-  <span style="font-family: Roboto;
-  font-size: 14px;color: #001A4C;">No Data Available !!! Kindly Add Pin </span>
-
+<div class="no-data"  *ngIf="listData.length == 0">
+  <div class="inner-nodata" >
+    <span class="content-div" >No Data Available !!! Kindly Add Pin </span>
   </div>
 </div>
 <ng-template #customer>
+  <form class="cus-form" [formGroup]="customerForm" (ngSubmit)="onSubmit(customerForm.value)">
 
-<form class="cus-form" [formGroup]="customerForm" (ngSubmit)="onSubmit(customerForm.value)">
-
-    <div style="display: flex;justify-content: space-between;margin-bottom: 10px;">
-      <label style="font-family: Roboto;
-      font-size: 20px;
-      font-weight: 600;
-      ">Add New Customer</label>
-      <img (click)="cancel()" style="width: 20px;height: 20px;" src="../assets/images/blue-cancel.png.png">
+    <div class="pin-div">
+      <label class="pin-lbl">Add New Customer</label>
+      <mat-icon class="cancel-icon" (click)="cancel()">cancel</mat-icon>
     </div>
     <div class="form-div">
-      <label style="width: 76px;line-height: 33px;font-family: Roboto;
-      font-size: 14px;
-      font-weight: 500;">Name<span class="required">*</span></label>
+      <label class="cus-form-lbl">Name<span class="required">*</span></label>
       <mat-form-field appearance="outline" class="fieldtxt">
-        <input style="position: relative;top: -16px;font-family: Roboto;
-        font-size: 12px;" matInput  formControlName="name" required>
-        <mat-error style="font-family: Roboto;font-size: 10px;" *ngIf="customerForm.get('name')?.hasError('required')">Name is required</mat-error>
+        <input class="frm-ip" matInput formControlName="name" required>
+        <mat-error class="cus-err"
+          *ngIf="customerForm.get('name')?.hasError('required')">Name is required</mat-error>
       </mat-form-field>
     </div>
 
     <div class="form-div">
-      <label style="width: 76px;line-height: 33px;font-family: Roboto;
-      font-size: 14px;
-      font-weight: 500;">Mail<span class="required">*</span></label>
+      <label class="cus-form-lbl">Mail<span class="required">*</span></label>
       <mat-form-field appearance="outline" class="fieldtxt">
-        <input style="position: relative;top: -16px;font-family: Roboto;
-        font-size: 12px;" matInput  formControlName="email" required>
-        <mat-error style="font-family: Roboto;font-size: 10px;" *ngIf="customerForm.get('email')?.hasError('required')">Email is required</mat-error>
-        <mat-error style="font-family: Roboto;font-size: 10px;" *ngIf="customerForm.get('email')?.hasError('email')">Invalid email</mat-error>
+        <input class="frm-ip" matInput formControlName="email" required>
+        <mat-error class="cus-err"
+          *ngIf="customerForm.get('email')?.hasError('required')">Email is required</mat-error>
+        <mat-error class="cus-err"
+          *ngIf="customerForm.get('email')?.hasError('email')">Invalid email</mat-error>
       </mat-form-field>
     </div>
 
     <div class="form-div">
-      <label style="width: 76px;line-height: 33px;font-family: Roboto;
-      font-size: 14px;
-      font-weight: 500;">Region<span class="required">*</span></label>
+      <label class="cus-form-lbl">Region<span class="required">*</span></label>
       <diV class="inner-div">
         <mat-form-field appearance="outline" class="fieldtxt">
-          <mat-select style="position: relative;top: -16px;font-family: Roboto;
-          font-size: 12px;" placeholder="Select Region" formControlName="region" required>
+          <mat-select class="select-lbl" placeholder="Select Region" formControlName="region" required>
             <mat-option *ngFor="let region of regions" [value]="region.value">{{ region.viewValue }}</mat-option>
           </mat-select>
-          <mat-error style="font-family: Roboto;font-size: 10px;" *ngIf="customerForm.get('region')?.hasError('required')">Region is required</mat-error>
+          <mat-error class="cus-err"
+            *ngIf="customerForm.get('region')?.hasError('required')">Region is required</mat-error>
         </mat-form-field>
       </diV>
     </div>
 
     <div class="form-div">
-      <label style="width: 76px;line-height: 33px;font-family: Roboto;
-      font-size: 14px;
-      font-weight: 500;">Country</label>
+      <label class="cus-form-lbl">Country</label>
       <diV class="inner-div">
         <mat-form-field appearance="outline" class="fieldtxt">
-          <mat-select style="position: relative;top: -16px;font-family: Roboto;
-          font-size: 12px;" placeholder="Select Country" formControlName="country" required>
+          <mat-select class="select-lbl" placeholder="Select Country" formControlName="country" required>
             <mat-option *ngFor="let country of countries" [value]="country.value">{{ country.viewValue }}</mat-option>
           </mat-select>
         </mat-form-field>
@@ -117,70 +96,51 @@ justify-content: center;" *ngIf="listData.length == 0">
     </div>
 
     <div class="save-div">
-      <button class="crt-btn" mat-raised-button color="primary" type="submit" [disabled]="!isValid">Create Customer</button>
+      <button class="crt-btn" mat-raised-button color="primary" type="submit" [disabled]="!isValid">Create
+        Customer</button>
     </div>
-</form>
-  
+  </form>
 </ng-template>
 
 <ng-template #pin>
-  <div style="display: flex;justify-content: space-between;margin-bottom: 10px;">
-    <label style="font-family: Roboto;
-    font-size: 20px;
-    font-weight: 600;
-    ">Add Pin</label>
-    <img (click)="cancel()" style="width: 20px;height: 20px;" src="../assets/images/blue-cancel.png.png">
+  <div class="pin-div" >
+    <label class="pin-lbl">Add Pin</label>
+    <mat-icon class="cancel-icon" (click)="cancel()" >cancel</mat-icon>
   </div>
   <form [formGroup]="form" (ngSubmit)="onSubmitPin()">
     <div class="form-div">
-      <label style="width: 110px;line-height: 33px;font-family: Roboto;
-      font-size: 14px;
-      font-weight: 500;">Title<span class="required">*</span></label>
+      <label class="pin-form-lbl">Title<span class="required">*</span></label>
       <mat-form-field appearance="outline" class="fieldtxt">
-        <input style="position: relative;top: -16px;font-family: Roboto;
-        font-size: 12px;" matInput formControlName="title" required>
+        <input class="frm-ip" matInput formControlName="title" required>
         <mat-error *ngIf="form.get('title')?.hasError('required')">Title is required</mat-error>
       </mat-form-field>
     </div>
 
     <div class="form-div">
-      <label style="width: 110px;line-height: 33px;font-family: Roboto;
-      font-size: 14px;
-      font-weight: 500;">Select Image<span class="required">*</span></label>
-        <input [ngModelOptions]="{standalone: true}" (change)="handleFileInput($event)" style="position: relative;top: -16px;font-family: Roboto;
-        font-size: 12px;" [(ngModel)]="selImg" #image hidden type="file"  required>
-        <mat-form-field appearance="outline" class="fieldtxt">
-          <input (click)="image.click()" style="position: relative;top: -16px;font-family: Roboto;
-          font-size: 12px;" [(ngModel)]="selImg" matInput formControlName="image" required>
-          <mat-error *ngIf="form.get('image')?.hasError('required')">Image is required</mat-error>
-        </mat-form-field>
-        
+      <label class="pin-form-lbl">Select Image<span class="required">*</span></label>
+      <input [ngModelOptions]="{standalone: true}" (change)="handleFileInput($event)" class="frm-ip" [(ngModel)]="selImg" #image hidden type="file" required>
+      <mat-form-field appearance="outline" class="fieldtxt">
+        <input (click)="image.click()" class="select-lbl" [(ngModel)]="selImg" matInput formControlName="image" required>
+        <mat-error *ngIf="form.get('image')?.hasError('required')">Image is required</mat-error>
+      </mat-form-field>
+
     </div>
 
     <div class="form-div">
-      <label style="width: 110px;line-height: 33px;font-family: Roboto;
-      font-size: 14px;
-      font-weight: 500;">Collaborators<span class="required">*</span></label>
+      <label class="pin-form-lbl">Collaborators<span class="required">*</span></label>
       <mat-form-field appearance="outline" class="fieldtxt">
-        <mat-select style="position: relative;top: -16px;font-family: Roboto;
-        font-size: 12px;" placeholder="Select Collaborators" formControlName="collaborator" multiple required>
+        <mat-select class="frm-ip" placeholder="Select Collaborators" formControlName="collaborator" multiple required>
           <mat-option style="font-family: Roboto;
-          font-size: 12px;" *ngFor="let collaborator of collaborators" [value]="collaborator.name">{{ collaborator.name }}</mat-option>
+          font-size: 12px;" *ngFor="let collaborator of collaborators" [value]="collaborator.name">{{ collaborator.name
+            }}</mat-option>
         </mat-select>
         <mat-error *ngIf="form.get('collaborator')?.hasError('required')">Collaborators is required</mat-error>
       </mat-form-field>
     </div>
 
     <div class="form-div">
-      <label style="width: 110px;line-height: 33px;font-family: Roboto;
-      font-size: 14px;
-      font-weight: 500;">Privacy<span class="required">*</span></label>
-      <mat-radio-group style="margin-top: 9px;
-      display: flex;
-      column-gap: 40px;
-      font-size: 12px;
-      font-family: roboto;
-      font-weight: 500;" formControlName="privacy">
+      <label class="pin-form-lbl">Privacy<span class="required">*</span></label>
+      <mat-radio-group class="pin-radio" formControlName="privacy">
         <mat-radio-button value="private">Private</mat-radio-button>
         <mat-radio-button value="public">Public</mat-radio-button>
       </mat-radio-group>

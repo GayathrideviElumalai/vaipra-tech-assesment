@@ -10,17 +10,17 @@ import { DomSanitizer } from '@angular/platform-browser';
   styleUrls: ['./app.component.css']
 })
 
-export class AppComponent implements OnInit{
+export class AppComponent implements OnInit {
   title = 'assessment';
   displayedColumns: string[] = ['title', 'image', 'collabrator', 'privacy'];
   dataSource = new MatTableDataSource();
-  listData : any = [
+  listData: any = [
   ]
   customerData: any = [];
   customerForm!: FormGroup;
   regions = [
     { value: 'north', viewValue: 'North' },
-    { value: 'outh', viewValue: 'South' },
+    { value: 'south', viewValue: 'South' },
     { value: 'east', viewValue: 'East' },
     { value: 'west', viewValue: 'West' }
   ];
@@ -30,17 +30,11 @@ export class AppComponent implements OnInit{
     { value: 'exico', viewValue: 'Mexico' }
   ];
   form!: FormGroup;
-  collaborators : any = [
-    // { text: 'Collaborator 1', value: '1' },
-    // { text: 'Collaborator 2', value: '2' },
-    // { text: 'Collaborator 3', value: '3' }
-  ];
+  collaborators: any = [];
   @ViewChild('customer') customer!: TemplateRef<any>;
   @ViewChild('pin') pin!: TemplateRef<any>;
   selImg: any;
-  constructor(private dialog: MatDialog,private cd : ChangeDetectorRef,private sanitizer: DomSanitizer) {
-
-  }
+  constructor(private dialog: MatDialog, private cd: ChangeDetectorRef, private sanitizer: DomSanitizer) { }
   ngOnInit() {
     this.dataSource.data = this.listData;
     console.log(this.dataSource.data)
@@ -59,8 +53,8 @@ export class AppComponent implements OnInit{
   }
   get isValid() {
     return this.customerForm.get('name')?.valid &&
-           this.customerForm.get('email')?.valid &&
-           this.customerForm.get('region')?.valid;
+      this.customerForm.get('email')?.valid &&
+      this.customerForm.get('region')?.valid;
   }
   sanitizedImageUrl: any;
 
@@ -69,38 +63,23 @@ export class AppComponent implements OnInit{
     const url = URL.createObjectURL(file);
     this.sanitizedImageUrl = this.sanitizer.bypassSecurityTrustUrl(url);
   }
-  handleFileInput(event:any) {
-    // const input = event.target;
-
-    // if (input.files && input.files[0]) {
-    //   const file = input.files[0];
-    //   const reader = new FileReader();
-
-    //   reader.onload = (e) => {
-    //     this.selImg = e.target?.result;
-    //     if (typeof this.selImg === 'string') {
-    //       this.form.value.image  = this.selImg;
-    //     }
-    //   };
-
-    //   reader.readAsDataURL(file);
-    // }
+  handleFileInput(event: any) {
     const input = event.target;
 
-  if (input.files && input.files[0]) {
-    const file = input.files[0];
-    const reader = new FileReader();
+    if (input.files && input.files[0]) {
+      const file = input.files[0];
+      const reader = new FileReader();
 
-    reader.onload = (e) => {
-      this.selImg = e.target?.result;
-      this.form.value.image  = this.selImg;
-    };
+      reader.onload = (e) => {
+        this.selImg = e.target?.result;
+        this.form.value.image = this.selImg;
+      };
 
-    reader.readAsDataURL(file);
-  }
+      reader.readAsDataURL(file);
+    }
   }
   onSubmit(formValue: any): void {
-    
+
     this.customerData.push(formValue);
     console.log('customerData', this.customerData);
     this.collaborators.push(formValue);
@@ -111,8 +90,6 @@ export class AppComponent implements OnInit{
   onSubmitPin() {
     console.log('Form Value', this.form.value);
     this.dialog.closeAll();
-    // this.getImageUrl(this.form.value.image);
-    // this.form.value.image = this.sanitizedImageUrl;
     this.listData.push(this.form.value);
     this.dataSource.data = [...this.listData]
     this.cd.detectChanges();
@@ -122,7 +99,7 @@ export class AppComponent implements OnInit{
   }
   addcustomer() {
     this.customerForm.reset();
-    this.dialog.open(this.customer,{disableClose: true});
+    this.dialog.open(this.customer, { disableClose: true });
   }
   cancel() {
     this.customerForm.reset();
@@ -132,7 +109,7 @@ export class AppComponent implements OnInit{
     this.form.reset();
     this.form.value.privacy = 'private';
     this.form.controls['privacy'].setValue('private');
-    this.dialog.open(this.pin,{disableClose: true});
+    this.dialog.open(this.pin, { disableClose: true });
 
   }
 }
